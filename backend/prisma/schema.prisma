@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// modelo de datos para el formulario
+model Lead {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  nombre    String
+  telefono  String
+  correo    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
