@@ -3,29 +3,47 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const { PrismaClient } = require('@prisma/client');
+const { z } = require('zod'); // 1. Importamos Zod
 
-// Inicializamos el cliente de Prisma
 const prisma = new PrismaClient();
 const app = express();
 
+// --- ESQUEMAS DE VALIDACIÓN (ZOD) ---
+// Definimos las reglas exactas que el formulario DEBE cumplir
+const contactoSchema = z.object({
+    nombre: z.string().min(2, "El nombre es muy corto").max(100, "El nombre es muy largo"),
+    telefono: z.string().min(10, "Teléfono inválido").max(15, "Teléfono muy largo"),
+    correo: z.string().email("Formato de correo inválido"),
+    servicio: z.enum(["Bodas", "XV Años", "Corporativo", "Cabinas/Muebles", "Otro"], {
+        errorMap: () => ({ message: "Selecciona un servicio válido" })
+    })
+});
+
 // --- CAPAS DE SEGURIDAD Y CONFIGURACIÓN ---
 
-// Permite que el frontend (puerto 3000) se comunique con este servidor
-app.use(cors()); 
+// 2. CORS Restringido: Solo tu dominio frontend tiene la llave
+const dominiosPermitidos = ['http://localhost:3000']; 
+// Nota: Cuando subas el proyecto a producción, agregarás el dominio real aquí.
 
-// Agrega cabeceras de seguridad para proteger el servidor
+app.use(cors({
+    origin: function (origin, callback) {
+        // Permite la petición si viene de tu frontend (o si no tiene origen definido en desarrollo)
+        if (!origin || dominiosPermitidos.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Bloqueado por CORS: Origen no autorizado'));
+        }
+    }
+}));
+
 app.use(helmet()); 
-
-// Permite leer el cuerpo de las peticiones en formato JSON (máximo 10kb para evitar ataques)
 app.use(express.json({ limit: '10kb' })); 
 
 
 // --- RUTAS ---
 
-// 1. Ruta de salud: Para verificar que el servidor y la base de datos están OK
 app.get('/api/health', async (req, res) => {
     try {
-        // Hacemos una consulta rápida para validar la conexión
         await prisma.$queryRaw`SELECT 1`; 
         res.status(200).json({ 
             estado: 'Servidor operativo', 
@@ -36,52 +54,53 @@ app.get('/api/health', async (req, res) => {
     }
 });
 
-// 2. Ruta de Contacto: Aquí se reciben los datos de Gustavo
 app.post('/api/contacto', async (req, res) => {
     try {
-        // Log para ver en la terminal lo que llega desde el formulario
         console.log(" Datos recibidos:", req.body);
 
-        const { nombre, telefono, correo } = req.body;
+        // 3. Pasamos los datos por el Escudo Zod
+        // Si hay código malicioso o formatos incorrectos, el código se detiene aquí.
+        const datosValidados = contactoSchema.parse(req.body);
 
-        // Validación básica
-        if (!nombre || !telefono || !correo) {
-            return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-        }
-
-        // GUARDADO: Usamos "lead" porque así se llama tu modelo en schema.prisma
+        // Si pasó el escudo, usamos "datosValidados" para guardar en MongoDB
         const nuevoRegistro = await prisma.lead.create({
             data: {
-                nombre: String(nombre),
-                telefono: String(telefono),
-                correo: String(correo)
+                nombre: datosValidados.nombre,
+                telefono: datosValidados.telefono,
+                correo: datosValidados.correo,
+                servicio: datosValidados.servicio 
             }
         });
 
         console.log(' Éxito al guardar en MongoDB:', nuevoRegistro);
-        
-        // Respuesta positiva al frontend
         res.status(201).json({ 
             mensaje: 'Éxito', 
             id: nuevoRegistro.id 
         });
 
     } catch (error) {
-        // Este log es vital: si algo falla, aquí verás el porqué en rojo en tu terminal
+        // 4. Capturamos los errores específicos de Zod para avisarle al usuario
+        if (error instanceof z.ZodError) {
+            console.error(' ERROR DE VALIDACIÓN:', error.errors);
+            return res.status(400).json({ 
+                error: 'Datos con formato incorrecto', 
+                detalles: error.errors 
+            });
+        }
+
         console.error(' ERROR AL GUARDAR EN BASE DE DATOS:', error);
         res.status(500).json({ error: 'No se pudo guardar la información' });
     }
 });
 
-
 // --- ARRANQUE DEL SERVIDOR ---
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`
      Servidor Backend Encendido
      Puerto: ${PORT}
-      ORM: Prisma con MongoDB
+     ORM: Prisma con MongoDB
+     Seguridad: Zod + Helmet Activados
     -------------------------------------------
     `);
 });

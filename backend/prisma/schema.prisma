@@ -13,6 +13,7 @@ model Lead {
   nombre    String
   telefono  String
   correo    String
+  servicio String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
