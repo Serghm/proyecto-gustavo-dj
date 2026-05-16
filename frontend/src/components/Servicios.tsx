@@ -1,6 +1,6 @@
 export default function Servicios() {
   // Arreglo de datos: Si Gustavo quiere agregar otro servicio mañana, 
-  // solo lo agregamos a esta lista y React hace el resto.
+  // solo lo agregamos a esta lista.
   const listaServicios = [
     {
       id: 1,

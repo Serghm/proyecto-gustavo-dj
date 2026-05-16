@@ -94,7 +94,7 @@ export default function Cabinas() {
           ))}
         </div>
 
-        {/* Banner de Envíos y Bodega GDL */}
+        {/* Banner de Envíos y Bodega */}
         <div className="bg-gradient-to-r from-[#0a192f] to-[#050b14] rounded-2xl p-8 border border-[#D4AF37]/20 shadow-[0_0_30px_rgba(212,175,55,0.05)] flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex-1">
             <h4 className="text-2xl font-bold text-white mb-2 flex items-center gap-3">

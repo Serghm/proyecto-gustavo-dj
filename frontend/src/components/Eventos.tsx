@@ -1,11 +1,11 @@
 export default function Eventos() {
-  // Datos de prueba: Simulando lo que llegaría de Sanity/Contentful
+  
   const eventosRecientes = [
     {
       id: 1,
       titulo: "Boda en Hacienda San José",
       categoria: "Bodas",
-      fecha: "10 Mayo, 2026", // Usando la fecha actual como contexto
+      fecha: "10 Mayo, 2026",
       extracto: "Un evento espectacular con más de 300 invitados. Montaje de cabina de acrílico y show de pirotecnia fría para el primer baile.",
     },
     {

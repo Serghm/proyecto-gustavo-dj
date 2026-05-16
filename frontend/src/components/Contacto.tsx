@@ -36,9 +36,8 @@ export default function Contacto() {
       if (respuesta.ok) {
         setEstado('success');
         
-        // --- LA MAGIA DE WHATSAPP ---
-        // Preparamos un mensaje súper personalizado basado en lo que el cliente eligió
-        const numeroWhatsApp = "5546352248"; // Importante: Cambia esto por el número real de Gustavo
+        // ---WHATSAPP ---
+        const numeroWhatsApp = "5512345678"; // Importante: Cambiar esto por el número real de Gustavo
         const mensaje = `¡Hola Gustavo! Acabo de dejar mis datos en tu página web. Mi nombre es *${formData.nombre}*. Me interesa cotizar: *${formData.servicio}*. Mi correo es ${formData.correo}.`;
         
         // Formateamos el texto para que la URL lo entienda

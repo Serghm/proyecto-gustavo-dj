@@ -1,11 +1,11 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import SobreMi from '@/components/SobreMi';
-import Cabinas from '@/components/Cabinas'; // Importamos el nuevo componente
+import Cabinas from '@/components/Cabinas'; 
 import Servicios from '@/components/Servicios';
-import Eventos from '@/components/Eventos'; // Importamos Eventos en lugar de InstagramFeed
+import Eventos from '@/components/Eventos'; 
 import Contacto from '@/components/Contacto';
-import Footer from '@/components/Footer'; // Importa el Footer
+import Footer from '@/components/Footer'; 
 
 export default function Home() {
   return (

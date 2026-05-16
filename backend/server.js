@@ -20,14 +20,11 @@ const contactoSchema = z.object({
 });
 
 // --- CAPAS DE SEGURIDAD Y CONFIGURACIÓN ---
-
-// 2. CORS Restringido: Solo tu dominio frontend tiene la llave
 const dominiosPermitidos = ['http://localhost:3000']; 
-// Nota: Cuando subas el proyecto a producción, agregarás el dominio real aquí.
+// Nota: cuando se suba a produccion cambiar aqui el dominio de Gustavo
 
 app.use(cors({
     origin: function (origin, callback) {
-        // Permite la petición si viene de tu frontend (o si no tiene origen definido en desarrollo)
         if (!origin || dominiosPermitidos.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
@@ -58,7 +55,7 @@ app.post('/api/contacto', async (req, res) => {
     try {
         console.log(" Datos recibidos:", req.body);
 
-        // 3. Pasamos los datos por el Escudo Zod
+        // Pasamos los datos por el Escudo Zod
         // Si hay código malicioso o formatos incorrectos, el código se detiene aquí.
         const datosValidados = contactoSchema.parse(req.body);
 
@@ -79,7 +76,7 @@ app.post('/api/contacto', async (req, res) => {
         });
 
     } catch (error) {
-        // 4. Capturamos los errores específicos de Zod para avisarle al usuario
+        //  capturamos los errores específicos de Zod para avisarle al usuario
         if (error instanceof z.ZodError) {
             console.error(' ERROR DE VALIDACIÓN:', error.errors);
             return res.status(400).json({ 

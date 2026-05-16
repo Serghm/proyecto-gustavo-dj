@@ -86,7 +86,7 @@ export default function Footer() {
             © {anioActual} Gustavo Delgadillo - Cabinas DJ. Todos los derechos reservados.
           </p>
           <p className="text-gray-500 text-[10px] uppercase tracking-widest">
-            Diseño & Desarrollo de Ingeniería Sergio Hernández Mendoza y 
+            Diseño & Desarrollo de Ingeniería Sergio Hernández Mendoza y Erick Florencio
           </p>
         </div>
 
