@@ -3,23 +3,64 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const { PrismaClient } = require('@prisma/client');
-const { z } = require('zod'); // 1. Importamos Zod
+const { z } = require('zod');
+const rateLimit = require('express-rate-limit');
 
 const prisma = new PrismaClient();
 const app = express();
 
-// --- ESQUEMAS DE VALIDACIÓN (ZOD) ---
-// Definimos las reglas exactas que el formulario DEBE cumplir
+// anti-spam limete de peticiones
+const contactoLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // Ventana de tiempo: 15 minutos
+  max: 3, // Límite estricto: Máximo 3 peticiones por IP en esos 15 minutos
+  message: { 
+    error: "Se ha detectado actividad inusual. Por favor, intenta enviar tu mensaje de nuevo en 15 minutos." 
+  },
+  standardHeaders: true, 
+  legacyHeaders: false, 
+});
+
+// anti correo temporal
+// Aquí podemos agregar más dominios si notamos que llega spam de otros sitios
+const dominiosBloqueados = [
+    '10minutemail.com', 
+    'tempmail.com', 
+    'yopmail.com', 
+    'mailinator.com',
+    'guerrillamail.com'
+];
+
+// esquema de validacion para zod
+// validamos formatos, limpiamos la entrada y bloqueamos correos falsos
 const contactoSchema = z.object({
-    nombre: z.string().min(2, "El nombre es muy corto").max(100, "El nombre es muy largo"),
-    telefono: z.string().min(10, "Teléfono inválido").max(15, "Teléfono muy largo"),
-    correo: z.string().email("Formato de correo inválido"),
+    nombre: z.string()
+        .min(2, "El nombre es muy corto")
+        .max(100, "El nombre es muy largo")
+        .trim() // Elimina espacios fantasmas al inicio y final
+        // Rechaza caracteres sospechosos de etiquetas HTML
+        .refine(val => !/[<>]/g.test(val), {
+            message: "El nombre contiene caracteres no permitidos (< o >)"
+        }),
+    telefono: z.string()
+        .min(10, "Teléfono inválido")
+        .max(15, "Teléfono muy largo")
+        .trim()
+        .regex(/^[0-9+()-\s]+$/, "El teléfono contiene caracteres inválidos"),
+    correo: z.string()
+        .email("Formato de correo inválido")
+        .trim()
+        .toLowerCase() // Normaliza el correo 
+        // Bloqueo de dominios temporales
+        .refine(email => {
+            const dominio = email.split('@')[1]; // Extrae lo que está después de la @
+            return !dominiosBloqueados.includes(dominio); // Si el dominio está en la lista negra, lanza error
+        }, { message: "No se permiten correos temporales o desechables" }),
     servicio: z.enum(["Bodas", "XV Años", "Corporativo", "Cabinas/Muebles", "Otro"], {
         errorMap: () => ({ message: "Selecciona un servicio válido" })
     })
 });
 
-// --- CAPAS DE SEGURIDAD Y CONFIGURACIÓN ---
+// capaas de seguridad
 const dominiosPermitidos = ['http://localhost:3000']; 
 // Nota: cuando se suba a produccion cambiar aqui el dominio de Gustavo
 
@@ -34,10 +75,10 @@ app.use(cors({
 }));
 
 app.use(helmet()); 
-app.use(express.json({ limit: '10kb' })); 
+app.use(express.json({ limit: '10kb' })); // Protege contra payloads masivos
 
 
-// --- RUTAS ---
+// rutas
 
 app.get('/api/health', async (req, res) => {
     try {
@@ -51,15 +92,15 @@ app.get('/api/health', async (req, res) => {
     }
 });
 
-app.post('/api/contacto', async (req, res) => {
+app.post('/api/contacto', contactoLimiter, async (req, res) =>{
     try {
         console.log(" Datos recibidos:", req.body);
 
-        // Pasamos los datos por el Escudo Zod
-        // Si hay código malicioso o formatos incorrectos, el código se detiene aquí.
+        // pasamos los datos por el Escudo Zod 
+        // si hay código malicioso o formatos incorrectos, la ejecución salta directo al catch.
         const datosValidados = contactoSchema.parse(req.body);
 
-        // Si pasó el escudo, usamos "datosValidados" para guardar en MongoDB
+        // Si pasó el escudo, usamos "datosValidados" (datos limpios) para guardar en MongoDB
         const nuevoRegistro = await prisma.lead.create({
             data: {
                 nombre: datosValidados.nombre,
@@ -76,12 +117,12 @@ app.post('/api/contacto', async (req, res) => {
         });
 
     } catch (error) {
-        //  capturamos los errores específicos de Zod para avisarle al usuario
+        // Capturamos los errores específicos de Zod para avisarle al usuario
         if (error instanceof z.ZodError) {
             console.error(' ERROR DE VALIDACIÓN:', error.errors);
             return res.status(400).json({ 
                 error: 'Datos con formato incorrecto', 
-                detalles: error.errors 
+                detalles: error.errors.map(err => ({ campo: err.path[0], mensaje: err.message }))
             });
         }
 
@@ -90,7 +131,7 @@ app.post('/api/contacto', async (req, res) => {
     }
 });
 
-// --- ARRANQUE DEL SERVIDOR ---
+// arranque del servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`

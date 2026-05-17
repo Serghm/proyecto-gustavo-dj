@@ -1,27 +1,31 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 
 export default function Cabinas() {
-  // Arreglo de modelos de cabinas (Gustavo puede editar los nombres y descripciones después)
+  // Arreglo de modelos de cabinas
   const modelosCabinas = [
     {
       id: 1,
-      nombre: 'Cabina Pro Plegable',
+      nombre: 'Cabina DJ Negra Rayado',
       descripcion: 'Diseño ligero y resistente, ideal para DJs móviles. Montaje en menos de 2 minutos sin herramientas.',
       caracteristicas: ['Estructura de acero', 'Paneles intercambiables', 'Funda de transporte'],
+      imagen: '/cabinas/CabinaDJNegra.jpeg' 
     },
     {
       id: 2,
-      nombre: 'Cabina Premium Acrílico',
+      nombre: 'Cabina DJ Diamante Plata tipo espejo',
       descripcion: 'Presencia imponente con paneles frontales de acrílico translúcido, perfectos para retroiluminación LED.',
       caracteristicas: ['Acrílico de 6mm', 'Base reforzada', 'Espacio oculto para cables'],
+      imagen: '/cabinas/CabinaDJDiamantePlata.jpeg' // Añadimos un string vacío para evitar el undefined
     },
     {
       id: 3,
-      nombre: 'Mesa Studio Producer',
+      nombre: 'Cabina DJ diamante Oro tipo espejo',
       descripcion: 'Mobiliario ergonómico diseñado específicamente para estudios de producción en casa o cabinas fijas.',
       caracteristicas: ['Bandeja deslizable', 'Racks integrados (19")', 'Acabado en madera premium'],
+      imagen: '/cabinas/CabinaDJDiamanteOro.jpeg' // Añadimos un string vacío
     }
   ];
 
@@ -55,14 +59,20 @@ export default function Cabinas() {
               key={cabina.id} 
               className="bg-[#0a192f] rounded-2xl p-8 border border-gray-800 hover:border-[#D4AF37]/50 transform hover:-translate-y-2 transition-all duration-300 group shadow-lg flex flex-col"
             >
-              {/* Espacio reservado para la foto de la cabina */}
-              <div className="w-full h-48 bg-[#050b14] rounded-xl mb-6 flex items-center justify-center border border-gray-800 group-hover:border-[#D4AF37]/30 transition-colors">
-                <span className="text-gray-600 text-sm flex flex-col items-center gap-2">
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  Imagen del Modelo
-                </span>
+              {/* Contenedor condicional para la imagen */}
+              <div className="w-full h-56 rounded-xl mb-6 relative overflow-hidden border border-gray-800 group-hover:border-[#D4AF37]/30 transition-colors bg-[#050b14] flex items-center justify-center">
+                {cabina.imagen ? (
+                  <Image 
+                    src={cabina.imagen} 
+                    alt={cabina.nombre}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    sizes="(max-w-768px) 100vw, 33vw"
+                    priority={cabina.id === 1}
+                  />
+                ) : (
+                  <span className="text-gray-600 text-sm">Sin imagen</span>
+                )}
               </div>
               
               <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#D4AF37] transition-colors">{cabina.nombre}</h3>
@@ -79,7 +89,7 @@ export default function Cabinas() {
                 ))}
               </ul>
 
-              {/* NUEVO: Botón de WhatsApp por producto */}
+              {/* Botón de WhatsApp por producto */}
               <button 
                 onClick={() => abrirWhatsApp(cabina.nombre)}
                 className="w-full flex items-center justify-center gap-2 bg-transparent border-2 border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black font-bold py-3 rounded-xl transition-all duration-300 mt-auto"
