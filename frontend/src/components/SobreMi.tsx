@@ -1,3 +1,6 @@
+import React from 'react';
+import Image from 'next/image';
+
 export default function SobreMi() {
   return (
     <section id="sobre-mi" className="w-full py-24 bg-[#0a192f] relative border-t border-gray-900 overflow-hidden">
@@ -49,18 +52,22 @@ export default function SobreMi() {
           {/* Columna Derecha: Tarjeta de Imagen */}
           <div className="w-full lg:w-1/2">
             <div className="relative rounded-2xl p-2 bg-gradient-to-br from-[#D4AF37]/50 to-[#050b14] shadow-[0_0_40px_rgba(212,175,55,0.15)] transform hover:-translate-y-2 transition-all duration-500">
-              <div className="bg-[#050b14] rounded-xl p-8 h-full flex flex-col items-center justify-center text-center min-h-[400px] border border-gray-800/50">
+              <div className="bg-[#050b14] rounded-xl p-8 h-full flex flex-col items-center justify-center text-center min-h-[450px] border border-gray-800/50">
                 
-                {/* Aquí Gustavo podrá poner su foto real después */}
-                <div className="w-32 h-32 rounded-full bg-gradient-to-tr from-[#D4AF37] to-yellow-600 mb-6 flex items-center justify-center shadow-lg">
-                  <svg className="w-16 h-16 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                  </svg>
+                <div className="relative w-full aspect-[3/4] max-w-[280px] md:max-w-[320px] rounded-2xl overflow-hidden border-2 border-[#D4AF37]/30 shadow-[0_0_30px_rgba(212,175,55,0.25)] mb-6 mx-auto group bg-[#0a192f]">
+                  <Image 
+                    src="/perfil/gustavo-dj.png" // se tiene que guradar una imagen real del DJ
+                    alt="Gustavo Delgadillo - DJ Profesional"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-w-768px) 280px, 320px"
+                    priority
+                  />
                 </div>
                 
                 <h3 className="text-2xl font-bold text-white mb-2">Ingeniero y Productor</h3>
                 <p className="text-gray-400">
-                  Creador de la marca <strong className="text-[#D4AF37]">Cabinas DJ </strong>, fabricando mobiliario premium para DJs en toda la República.
+                  Creador de la marca <strong className="text-[#D4AF37]">Cabinas DJ</strong>, fabricando mobiliario premium para DJs en toda la República.
                 </p>
               </div>
             </div>
