@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.gustavodelgadillo.com"),// cambiar al dominio real
   title: "Gustavo Delgadillo | DJ Versátil y Fabricación de Cabinas",
   description: "Servicios de DJ profesional para bodas, XV años y eventos corporativos. Fabricación y venta de cabinas y mobiliario premium para DJs con envíos a todo México.",
   keywords: [
@@ -56,8 +56,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="es-MX" // <-- Vital para el SEO en México
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`} // <-- Añadido scroll-smooth para los enlaces
+      lang="es-MX"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

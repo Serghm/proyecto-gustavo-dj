@@ -18,18 +18,18 @@ export default function Cabinas() {
       nombre: 'Cabina DJ Diamante Plata tipo espejo',
       descripcion: 'Presencia imponente con paneles frontales de acrílico translúcido, perfectos para retroiluminación LED.',
       caracteristicas: ['Acrílico de 6mm', 'Base reforzada', 'Espacio oculto para cables'],
-      imagen: '/cabinas/CabinaDJDiamantePlata.jpeg' // Añadimos un string vacío para evitar el undefined
+      imagen: '/cabinas/CabinaDJDiamantePlata.jpeg' 
     },
     {
       id: 3,
       nombre: 'Cabina DJ diamante Oro tipo espejo',
       descripcion: 'Mobiliario ergonómico diseñado específicamente para estudios de producción en casa o cabinas fijas.',
       caracteristicas: ['Bandeja deslizable', 'Racks integrados (19")', 'Acabado en madera premium'],
-      imagen: '/cabinas/CabinaDJDiamanteOro.jpeg' // Añadimos un string vacío
+      imagen: '/cabinas/CabinaDJDiamanteOro.jpeg'
     }
   ];
 
-  // --- LÓGICA DE WHATSAPP (VENTA DIRECTA) ---
+  // logica para abrir WhatsApp
   const abrirWhatsApp = (nombreModelo: string) => {
     const numeroGustavo = "525512345678"; // Importante: Cambiar por el teléfono real
     const mensaje = `¡Hola Gustavo! Vi tu página web y me interesa cotizar el modelo: *${nombreModelo}*. ¿Me podrías dar más información sobre precio y envío?`;
@@ -42,14 +42,17 @@ export default function Cabinas() {
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Cabecera de la sección */}
-        <div className="text-center mb-16">
-          <span className="text-[#D4AF37] uppercase tracking-widest text-sm font-bold mb-2 block">Fabricación Propia</span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Mobiliario <span className="text-[#D4AF37]">Cabinas DJ</span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            Diseñamos y fabricamos muebles profesionales para DJs. Estética, resistencia y funcionalidad para tu setup.
-          </p>
+        <div className="text-center mb-16 relative z-10">
+            <span className="text-[#D4AF37] uppercase tracking-widest text-sm font-bold mb-2 block">
+                Ingeniería y Diseño
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-wide">
+                 Mobiliario <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#F3E5AB]">Premium</span>
+            </h2>
+            <p className="max-w-3xl mx-auto text-gray-300 text-lg md:text-xl font-light leading-relaxed">
+                 Eleva la presencia visual de tu show. Diseñamos y fabricamos muebles profesionales para DJs donde la <span className="text-white font-medium uppercase text-sm tracking-wider">estética impecable</span>, la <span className="text-white font-medium uppercase text-sm tracking-wider">resistencia</span> y la <span className="text-[#D4AF37] font-bold uppercase text-sm tracking-wider">funcionalidad absoluta</span> se fusionan para perfeccionar tu setup.
+            </p>
+             <div className="w-24 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8"></div>
         </div>
 
         {/* Grid de Modelos */}

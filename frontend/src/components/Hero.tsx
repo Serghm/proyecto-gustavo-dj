@@ -23,7 +23,6 @@ export default function Hero() {
   return (
     <section id="inicio" className="relative h-screen w-full overflow-hidden bg-[#050b14] flex items-center justify-center">
       
-      {/* Carrusel de Fondo Animado */}
       {imagenesFondo.map((img, index) => (
         <div
           key={img}
@@ -43,44 +42,41 @@ export default function Hero() {
         </div>
       ))}
 
-      {/* Capa de oscurecimiento tipo Club Nocturno */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/50 to-[#050b14] z-10" />
 
-      {/* Contenido Central (Espaciado agresivo para librar el menú) */}
       <div className="relative z-20 text-center px-6 w-full max-w-5xl mx-auto mt-48 md:mt-64 lg:mt-72">
         
-        {/* Bloque de Identidad Tipográfica Completa */}
         <h1 className="flex flex-col items-center justify-center font-black mb-8 leading-none select-none">
-          {/* "DJ" Grande, Eléctrico y Dominante */}
           <span className="text-6xl md:text-8xl text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#FFF5C3] tracking-[0.25em] font-extrabold uppercase drop-shadow-[0_0_20px_rgba(212,175,55,0.6)] ml-6">
             DJ
           </span>
           
-          {/* Nombre de pila con espaciado elegante */}
           <span className="text-3xl md:text-5xl text-white tracking-[0.35em] uppercase mt-4 ml-4 font-light">
             Gustavo
           </span>
           
-          {/* Apellido de gran impacto visual */}
           <span className="text-5xl md:text-8xl lg:text-[7.5rem] text-transparent bg-clip-text bg-gradient-to-b from-[#FFF5C3] via-[#D4AF37] to-[#997A15] tracking-tighter drop-shadow-[0_0_35px_rgba(212,175,55,0.35)] uppercase mt-1">
             Delgadillo
           </span>
         </h1>
         
-        {/* Propuesta de valor encapsulada en cristal */}
-        <div className="max-w-3xl mx-auto bg-black/40 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-white/10 shadow-2xl mb-10">
-          <p className="text-xl md:text-2xl lg:text-3xl text-white font-medium mb-4 drop-shadow-lg">
+        <div className="max-w-4xl mx-auto bg-black/40 backdrop-blur-md p-6 md:p-10 rounded-2xl border border-white/10 shadow-2xl mb-10">
+          <p className="text-xl md:text-2xl lg:text-3xl text-white font-medium mb-6 drop-shadow-lg">
             Convierte cualquier evento en una experiencia <span className="text-[#D4AF37] font-bold">inolvidable.</span>
           </p>
-          <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-4"></div>
-          <p className="text-sm md:text-base text-gray-300 font-light leading-relaxed hidden md:block">
-            No se trata solo de poner canciones, sino de leer al público, mantener la energía en el punto exacto y lograr que cada momento tenga el impacto que merece.
-          </p>
+          
+          <div className="w-24 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-8"></div>
+          
+          <div className="relative px-6 py-2 hidden md:block">
+            <span className="absolute top-0 left-0 text-6xl text-[#D4AF37]/20 font-serif leading-none select-none">"</span>
+            <p className="text-base md:text-lg lg:text-xl text-gray-300 font-light italic leading-loose tracking-wide relative z-10">
+              No se trata solo de poner canciones, sino de <span className="text-white font-medium tracking-widest uppercase text-sm lg:text-base">leer al público</span>, mantener la <span className="text-[#D4AF37] font-medium tracking-widest uppercase text-sm lg:text-base drop-shadow-md">energía en el punto exacto</span> y lograr que cada momento tenga el impacto que merece.
+            </p>
+            <span className="absolute bottom-0 right-0 text-6xl text-[#D4AF37]/20 font-serif leading-none select-none translate-y-4">"</span>
+          </div>
         </div>
 
-        {/* Botones de Acción - Redirección interna hacia el formulario */}
         <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
-          {/* Cambiado de botón de WhatsApp a enlace de ancla hacia el formulario (#contacto) */}
           <a 
             href="#contacto"
             className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-[#D4AF37] to-[#B38F24] text-black uppercase tracking-wider font-extrabold rounded-full hover:scale-105 transition-all duration-300 shadow-[0_0_25px_rgba(212,175,55,0.5)] flex items-center justify-center gap-2 select-none"
@@ -100,7 +96,6 @@ export default function Hero() {
         </div>
       </div>
       
-      {/* Indicador de scroll animado */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce hidden md:block">
         <svg className="w-6 h-6 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
