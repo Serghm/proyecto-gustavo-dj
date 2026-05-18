@@ -29,10 +29,9 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         
-        {/* LOGOTIPO REAL */}
+        {/* logotipo */}
         <a href="#inicio" className="flex items-center gap-3 group">
           <div className="relative w-30 h-30 group-hover:scale-105 transition-transform duration-300">
-            {/* Aquí mandamos llamar a logo.png desde la carpeta public */}
             <Image 
               src="/logo.jpg" 
               alt="Logo Gustavo Delgadillo" 
@@ -47,7 +46,7 @@ export default function Navbar() {
           </div>
         </a>
         
-        {/* ENLACES ESCRITORIO */}
+        {/* enlces para el escritorio */}
         <nav className="hidden md:block">
           <ul className="flex items-center gap-8 text-sm font-medium text-gray-300">
             <li><a href="#inicio" className="hover:text-[#D4AF37] transition-colors duration-300">Inicio</a></li>
@@ -63,7 +62,7 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        {/* BOTÓN MÓVIL */}
+        {/* boton movil*/}
         <button 
           className="md:hidden text-[#D4AF37] p-2"
           onClick={() => setIsMobileOpen(!isMobileOpen)}
@@ -75,7 +74,7 @@ export default function Navbar() {
 
       </div>
 
-      {/* MENÚ MÓVIL */}
+      {/* menu */}
       <div className={`md:hidden absolute w-full bg-[#0a1526] border-b border-gray-800 transition-all duration-300 overflow-hidden ${isMobileOpen ? 'max-h-96 border-t border-gray-800' : 'max-h-0 border-none'}`}>
         <ul className="flex flex-col px-6 py-4 gap-4 text-center">
           <li><a href="#inicio" onClick={() => setIsMobileOpen(false)} className="block text-gray-300 hover:text-[#D4AF37] py-2">Inicio</a></li>

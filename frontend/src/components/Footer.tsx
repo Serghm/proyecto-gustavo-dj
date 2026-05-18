@@ -9,7 +9,7 @@ export default function Footer() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           
-          {/* Columna 1: Marca y Logo */}
+          {/* Marca y Logo */}
           <div className="space-y-6">
             <h3 className="text-2xl font-bold text-white tracking-tighter">
               GUSTAVO<span className="text-[#D4AF37]">DELGADILLO</span>
@@ -32,7 +32,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Columna 2: Enlaces Rápidos */}
+          {/* Enlaces Rápidos */}
           <div>
             <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Navegación</h4>
             <ul className="space-y-4">
@@ -46,7 +46,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Columna 3: Servicios Principales */}
+          {/* Servicios Principales */}
           <div>
             <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Servicios</h4>
             <ul className="space-y-4">
@@ -58,7 +58,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Columna 4: Info de Contacto */}
+          {/* Info de Contacto */}
           <div>
             <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Contacto</h4>
             <ul className="space-y-4">

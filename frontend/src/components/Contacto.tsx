@@ -7,7 +7,7 @@ export default function Contacto() {
     nombre: '',
     telefono: '',
     correo: '',
-    servicio: 'Bodas' // <-- Añadimos el valor por defecto del nuevo campo
+    servicio: 'Bodas' 
   });
   const [estado, setEstado] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [mensajeError, setMensajeError] = useState('');
@@ -84,7 +84,7 @@ export default function Contacto() {
           onSubmit={handleSubmit} 
           className="bg-[#0a192f] p-8 md:p-12 rounded-3xl border border-gray-800 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden"
         >
-          {/* Sutil resplandor interno */}
+          
           <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#D4AF37]/5 blur-[80px] pointer-events-none"></div>
 
           <div className="grid grid-cols-1 gap-8 relative z-10">
@@ -135,7 +135,7 @@ export default function Contacto() {
               />
             </div>
 
-            {/* NUEVO CAMPO: Tipo de Servicio */}
+            {/* Tipo de Servicio */}
             <div>
               <label htmlFor="servicio" className="block text-gray-300 font-semibold mb-3 ml-1 text-sm uppercase tracking-wider">¿Qué te interesa cotizar?</label>
               <select

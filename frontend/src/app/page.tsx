@@ -13,7 +13,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <SobreMi /> 
-      <Cabinas /> {/* Lo colocamos aquí */}
+      <Cabinas /> 
       <Servicios /> 
       <Eventos />
       <Contacto />

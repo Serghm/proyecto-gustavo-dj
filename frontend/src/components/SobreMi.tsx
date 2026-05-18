@@ -12,7 +12,7 @@ export default function SobreMi() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           
-          {/* Columna Izquierda: Texto */}
+          {/* columna Izquierda: Texto */}
           <div className="w-full lg:w-1/2">
             <span className="text-[#D4AF37] uppercase tracking-widest text-sm font-bold mb-2 block">
               Conoce al DJ
@@ -36,7 +36,7 @@ export default function SobreMi() {
               </p>
             </div>
 
-            {/* Estadísticas / Logros */}
+            {/* estadisticas :) */}
             <div className="grid grid-cols-2 gap-6 mt-10 border-t border-gray-800 pt-8">
               <div>
                 <h4 className="text-3xl font-black text-[#D4AF37]">15+</h4>
@@ -56,7 +56,7 @@ export default function SobreMi() {
                 
                 <div className="relative w-full aspect-[3/4] max-w-[280px] md:max-w-[320px] rounded-2xl overflow-hidden border-2 border-[#D4AF37]/30 shadow-[0_0_30px_rgba(212,175,55,0.25)] mb-6 mx-auto group bg-[#0a192f]">
                   <Image 
-                    src="/perfil/gustavo-dj.png" // se tiene que guradar una imagen real del DJ
+                    src="/perfil/gustavo-dj.png" // se tiene que modificar y guardar una imagen real del DJ
                     alt="Gustavo Delgadillo - DJ Profesional"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
