@@ -25,7 +25,7 @@ export default function Cabinas() {
       nombre: 'Cabina DJ diamante Oro tipo espejo',
       descripcion: 'Mobiliario ergonómico diseñado específicamente para estudios de producción en casa o cabinas fijas.',
       caracteristicas: ['Bandeja deslizable', 'Racks integrados (19")', 'Acabado en madera premium'],
-      imagen: '/cabinas/CabinaDJDiamanteOro.jpeg'
+      imagen: '/cabinas/CabinaDJdiamanteOro.jpeg'
     }
   ];
 
