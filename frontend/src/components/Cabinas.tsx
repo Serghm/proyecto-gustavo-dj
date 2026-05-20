@@ -31,7 +31,7 @@ export default function Cabinas() {
 
   // logica para abrir WhatsApp
   const abrirWhatsApp = (nombreModelo: string) => {
-    const numeroGustavo = "525512345678"; // Importante: Cambiar por el teléfono real
+    const numeroGustavo = "525522177204"; // Importante: Cambiar por el teléfono real
     const mensaje = `¡Hola Gustavo! Vi tu página web y me interesa cotizar el modelo: *${nombreModelo}*. ¿Me podrías dar más información sobre precio y envío?`;
     const url = `https://wa.me/${numeroGustavo}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');

@@ -7,13 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// modelo de datos para el formulario
 model Lead {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   nombre    String
   telefono  String
   correo    String
-  servicio String
+  servicio  String?  // <-- Le agregamos el "?"
+  fecha     String?  // <-- Le agregamos el "?"
+  hora      String?  // <-- Le agregamos el "?"
+  ubicacion String?  // <-- Le agregamos el "?"
+  detalles  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

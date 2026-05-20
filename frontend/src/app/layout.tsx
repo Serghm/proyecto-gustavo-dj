@@ -36,7 +36,7 @@ export const metadata: Metadata = {
       {
         url: "/logo.jpg", 
         width: 800,
-        height: 600,
+        height: 800,
         alt: "Logo Gustavo Delgadillo"
       },
     ],
