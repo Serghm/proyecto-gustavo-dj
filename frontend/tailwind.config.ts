@@ -15,6 +15,20 @@ const config: Config = {
           negro: "#050b14",
         },
       },
+      keyframes: {
+        'pulse-glow': {
+          '0%, 100%': { opacity: '1', filter: 'drop-shadow(0 0 4px rgba(212, 175, 55, 0.4))' },
+          '50%': { opacity: '0.85', filter: 'drop-shadow(0 0 12px rgba(212, 175, 55, 0.7))' },
+        },
+        'shimmer-text': {
+          '0%': { backgroundPosition: '-200% 50%' },
+          '100%': { backgroundPosition: '200% 50%' },
+        },
+      },
+      animation: {
+        'logo-glow': 'pulse-glow 4s ease-in-out infinite',
+        'text-shine': 'shimmer-text 6s linear infinite',
+      },
     },
   },
   plugins: [],

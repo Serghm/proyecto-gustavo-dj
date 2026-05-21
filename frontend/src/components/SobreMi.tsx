@@ -1,7 +1,22 @@
-import React from 'react';
+'use client'; // Necesario para manejar clics y estados en Next.js
+
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 
 export default function SobreMi() {
+  // Lógica del reproductor de audio
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
   return (
     <section id="sobre-mi" className="w-full py-24 bg-[#0a192f] relative border-t border-gray-900 overflow-hidden">
       {/* Luces de fondo sutiles */}
@@ -47,6 +62,30 @@ export default function SobreMi() {
                 <p className="text-gray-400 text-sm uppercase tracking-wider mt-1">Energía en la Pista</p>
               </div>
             </div>
+
+            {/* NUEVO: Botón de Audio interactivo */}
+            <div className="mt-8">
+              {/* Aquí configuras la ruta de tu audio. Debe ir en la carpeta 'public' */}
+              <audio ref={audioRef} src="/audio-demo.mp3" loop preload="none" />
+              
+              <button 
+                onClick={togglePlay}
+                className="flex items-center gap-4 bg-transparent border border-[#D4AF37]/50 hover:bg-[#D4AF37]/10 transition-colors duration-300 px-6 py-3 rounded-full group cursor-pointer"
+              >
+                {/* Barras del ecualizador animadas */}
+                <div className="flex items-end gap-1 h-5">
+                  <div className={`w-1.5 bg-[#D4AF37] rounded-full transition-all duration-300 ${isPlaying ? 'h-full animate-pulse' : 'h-1.5'}`}></div>
+                  <div className={`w-1.5 bg-[#D4AF37] rounded-full transition-all duration-300 delay-75 ${isPlaying ? 'h-3/4 animate-pulse' : 'h-3'}`}></div>
+                  <div className={`w-1.5 bg-[#D4AF37] rounded-full transition-all duration-300 delay-150 ${isPlaying ? 'h-full animate-pulse' : 'h-2'}`}></div>
+                  <div className={`w-1.5 bg-[#D4AF37] rounded-full transition-all duration-300 delay-75 ${isPlaying ? 'h-1/2 animate-pulse' : 'h-4'}`}></div>
+                </div>
+                
+                <span className="text-[#D4AF37] font-bold tracking-wider uppercase text-sm">
+                  {isPlaying ? 'Pausar Mix' : 'Escuchar Demo'}
+                </span>
+              </button>
+            </div>
+
           </div>
 
           {/* Columna Derecha: Tarjeta de Imagen */}
@@ -60,7 +99,7 @@ export default function SobreMi() {
                     alt="Gustavo Delgadillo - DJ Profesional"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-w-768px) 280px, 320px"
+                    sizes="(max-width: 768px) 280px, 320px"
                     priority
                   />
                 </div>
