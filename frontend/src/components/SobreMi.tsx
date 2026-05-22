@@ -66,7 +66,7 @@ export default function SobreMi() {
             {/* NUEVO: Botón de Audio interactivo */}
             <div className="mt-8">
               {/* Aquí configuras la ruta de tu audio. Debe ir en la carpeta 'public' */}
-              <audio ref={audioRef} src="/audio-demo.mp3" loop preload="none" />
+              <audio ref={audioRef} src="/muestra_provicional.mp3" loop preload="none" />
               
               <button 
                 onClick={togglePlay}
